@@ -1,0 +1,164 @@
+package college_system;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        College_system college = new College_system();
+        boolean running = true;
+
+        System.out.println("Welcome to the College Management System!");
+
+        while (running) {
+            try {
+                System.out.println("\n-------------------------------------------");
+                System.out.println("   --- Main Menu ---");
+                System.out.println("1.  Add a Student");
+                System.out.println("2.  Add an Instructor");
+                System.out.println("3.  Add a Course");
+                System.out.println("4.  Register a Course for a Student");
+                System.out.println("5.  Assign a Course to an Instructor");
+                System.out.println("6.  Display College Information");
+                System.out.println("7.  List all Courses");
+                System.out.println("8.  List all Students");
+                System.out.println("9.  List all Instructors");
+                System.out.println("10. Display Student's Courses");
+                System.out.println("11. Display Instructor's Courses");
+                System.out.println("12. Exit");
+                System.out.print("Enter your choice: ");
+
+                if (!sc.hasNextInt()) {
+                    System.out.println("Invalid input! Please enter a number.");
+                    sc.next(); // clear buffer
+                    continue;
+                }
+                int choice = sc.nextInt();
+                sc.nextLine(); // consume newline
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter student name: ");
+                        String sName = sc.nextLine();
+                        System.out.print("Enter student ID: ");
+                        long sId = sc.nextLong();
+                        System.out.print("Enter student level: ");
+                        int level = sc.nextInt();
+                        System.out.print("Enter student GPA: ");
+                        double gpa = sc.nextDouble();
+                        college.addStudent(new Student(sName, sId, level, gpa));
+                        System.out.println("Student added successfully.");
+                        break;
+
+                    case 2:
+                        System.out.print("Enter Instructor name: ");
+                        String iName = sc.nextLine();
+                        System.out.print("Enter Instructor ID: ");
+                        long iId = sc.nextLong();
+                        System.out.print("Enter gross salary: ");
+                        double salary = sc.nextDouble();
+                        System.out.print("Enter tax rate (e.g., 0.1): ");
+                        double tax = sc.nextDouble();
+                        college.addInstructor(new Instructor(iName, iId, salary, tax));
+                        System.out.println("Instructor added successfully.");
+                        break;
+
+                    case 3:
+                        System.out.print("Enter course name: ");
+                        String cName = sc.nextLine();
+                        System.out.print("Enter course ID: ");
+                        int cId = sc.nextInt();
+                        college.addCourse(new Course(cName, cId));
+                        System.out.println("Course added successfully.");
+                        break;
+
+                    case 4:
+                        System.out.print("Enter Student ID: ");
+                        long sid = sc.nextLong();
+                        System.out.print("Enter Course ID: ");
+                        int cid = sc.nextInt();
+                        Student selectedStudent = college.findStudentById(sid);
+                        Course selectedCourse = college.findCourseById(cid);
+
+                        if (selectedStudent != null && selectedCourse != null) {
+                            CourseRegistration.RegisterStudentCourse(selectedStudent, selectedCourse);
+                            System.out.println("Course registered successfully.");
+                        } else {
+                            System.out.println("Error: Student or Course not found.");
+                        }
+                        break;
+
+                    case 5:
+                        System.out.print("Enter Instructor ID: ");
+                        long instId = sc.nextLong();
+                        System.out.print("Enter Course ID: ");
+                        int crsId = sc.nextInt();
+                        Instructor selectedInstructor = college.findInstructorById(instId);
+                        Course selectedCrs = college.findCourseById(crsId);
+
+                        if (selectedInstructor != null && selectedCrs != null) {
+                            CourseRegistration.AssignInstructorCourse(selectedInstructor, selectedCrs);
+                            System.out.println("Course assigned successfully.");
+                        } else {
+                            System.out.println("Error: Instructor or Course not found.");
+                        }
+                        break;
+
+                    case 6:
+                        college.displayCollegeInfo();
+                        break;
+
+                    case 7:
+                        System.out.println("\n--- List of Courses ---");
+                        for (Course c : college.getCourses()) {
+                            System.out.println(c.getCourseinfo());
+                        }
+                        break;
+
+                    case 8:
+                        System.out.println("\n--- List of Students ---");
+                        for (Student s : college.getStudents()) {
+                            s.display();
+                        }
+                        break;
+
+                    case 9:
+                        System.out.println("\n--- List of Instructors ---");
+                        for (Instructor i : college.getInstructors()) {
+                            i.display();
+                        }
+                        break;
+
+                    case 10:
+                        System.out.print("Enter Student ID: ");
+                        long stid = sc.nextLong();
+                        Student foundS = college.findStudentById(stid);
+                        if (foundS != null) foundS.display();
+                        else System.out.println("Student not found.");
+                        break;
+
+                    case 11:
+                        System.out.print("Enter Instructor ID: ");
+                        long lId = sc.nextLong();
+                        Instructor foundI = college.findInstructorById(lId);
+                        if (foundI != null) foundI.display();
+                        else System.out.println("Instructor not found.");
+                        break;
+
+                    case 12:
+                        System.out.println("Exiting... Have a nice day!");
+                        running = false;
+                        break;
+
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+                sc.nextLine(); // clean up scanner buffer
+            }
+        }
+        sc.close();
+    }
+}
