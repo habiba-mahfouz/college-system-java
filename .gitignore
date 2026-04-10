@@ -1,0 +1,13 @@
+# Build artifacts
+build/
+dist/
+nbbin/
+nbactions.xml
+nb-configuration.xml
+
+# NetBeans private settings
+nbproject/private/
+
+# Others
+*.log
+*.class
