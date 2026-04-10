@@ -1,4 +1,4 @@
-# College Management System (Java) 🏛️
+# College Management System (Team Work) 🏛️
 
 A professional, object-oriented Java application designed to manage college data, including students, instructors, and course registrations. This project demonstrates core OOP principles such as **Inheritance**, **Polymorphism**, **Encapsulation**, and **Abstraction**.
 
