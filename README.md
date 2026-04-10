@@ -2,6 +2,9 @@
 
 A professional, object-oriented Java application designed to manage college data, including students, instructors, and course registrations. This project demonstrates core OOP principles such as **Inheritance**, **Polymorphism**, **Encapsulation**, and **Abstraction**.
 
+<img width="595" height="493" alt="console college" src="https://github.com/user-attachments/assets/21d411d7-07c5-4f8a-9b0d-c6edcd9f9448" />
+
+
 ## ✨ Features
 
 -   **Comprehensive Data Model**: Manages Students, Instructors, and Courses using a robust inheritance structure.
